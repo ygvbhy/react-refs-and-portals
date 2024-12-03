@@ -9,6 +9,8 @@ export default function Player() {
     // 참조를 통해 플레이어 이름을 업데이트 함
     // onChange 로 클릭 될때마다 하지 않아도 됨
     setEnteredPlayerName(playerName.current.value);
+    // 값 초기화
+    playerName.current.value = "";
   };
 
   return (
