@@ -5,13 +5,14 @@ const TimerChallenge = ({ title, targetTime }) => {
   // 대충 선언 한뒤 setTimerout 없애려고 하면 state 로 인해 값이 초기화 됨
   // 그래서 참조 값으로 따로 선언 해서 진행 해야 함
   const timer = useRef();
-
+  const dialog = useRef();
   const [timerExpired, setTimerExpired] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
 
   const handleStart = () => {
     timer.current = setTimeout(() => {
       setTimerExpired(true);
+      dialog.current.showModal();
     }, targetTime * 1000);
 
     setTimerStarted(true);
@@ -23,7 +24,7 @@ const TimerChallenge = ({ title, targetTime }) => {
 
   return (
     <>
-      {timerExpired && <ResultModal targetTime={targetTime} result="lost" />}
+      <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
       <div className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
