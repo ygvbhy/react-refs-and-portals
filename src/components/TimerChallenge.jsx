@@ -12,7 +12,8 @@ const TimerChallenge = ({ title, targetTime }) => {
   const handleStart = () => {
     timer.current = setTimeout(() => {
       setTimerExpired(true);
-      dialog.current.showModal();
+      // 자식 컴포넌트에서 받아온 ref 함수
+      dialog.current.open();
     }, targetTime * 1000);
 
     setTimerStarted(true);
