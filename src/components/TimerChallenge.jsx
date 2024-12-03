@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import ResultModal from "./ResultModal";
 
 const TimerChallenge = ({ title, targetTime }) => {
   // 대충 선언 한뒤 setTimerout 없애려고 하면 state 로 인해 값이 초기화 됨
@@ -21,21 +22,23 @@ const TimerChallenge = ({ title, targetTime }) => {
   };
 
   return (
-    <div className="challenge">
-      <h2>{title}</h2>
-      {timerExpired && <p>You lost!</p>}
-      <p className="challenge-time">
-        {targetTime} seconds{targetTime > 1 ? "s" : ""}
-      </p>
-      <p>
-        <button onClick={timerStarted ? handleStop : handleStart}>
-          {timerStarted ? "Stop" : "Start"} Challenge
-        </button>
-      </p>
-      <p className={timerStarted ? "active" : ""}>
-        {timerStarted ? "Time is running..." : "Timer inactive"}
-      </p>
-    </div>
+    <>
+      {timerExpired && <ResultModal targetTime={targetTime} result="lost" />}
+      <div className="challenge">
+        <h2>{title}</h2>
+        <p className="challenge-time">
+          {targetTime} seconds{targetTime > 1 ? "s" : ""}
+        </p>
+        <p>
+          <button onClick={timerStarted ? handleStop : handleStart}>
+            {timerStarted ? "Stop" : "Start"} Challenge
+          </button>
+        </p>
+        <p className={timerStarted ? "active" : ""}>
+          {timerStarted ? "Time is running..." : "Timer inactive"}
+        </p>
+      </div>
+    </>
   );
 };
 
