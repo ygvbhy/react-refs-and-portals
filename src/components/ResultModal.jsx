@@ -7,6 +7,7 @@ const ResultModal = forwardRef(({ remainigTime, targetTime, onReset }, ref) => {
 
   const userLost = remainigTime <= 0;
   const formattedRemainingTime = (remainigTime / 1000).toFixed(2);
+  const score = Math.round((1 - remainigTime / (targetTime * 1000)) * 100);
 
   // 부모 컴포넌트의 ref 에 해당 함수를 넘겨줌
   useImperativeHandle(ref, () => {
@@ -19,7 +20,8 @@ const ResultModal = forwardRef(({ remainigTime, targetTime, onReset }, ref) => {
 
   return (
     <dialog ref={dialog} className='result-modal'>
-      <h2>Your {userLost ? "lost" : "won"}</h2>
+      {userLost && <h2>Your lost</h2>}
+      {!userLost && <h2>Your Score: {score}</h2>}
       <p>
         The target time was <strong>{targetTime} seconds.</strong>
       </p>
